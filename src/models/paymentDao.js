@@ -1,34 +1,24 @@
 const { dataSource } = require('./dataSource');
 
-const getPaymentDao = async (userId, productId) => {
+const getPaymentDao = async (userId, amount) => {
   await dataSource.query(
     `
-    // SELECT * FROM reviews WHERE customer_id = ? & product_id = ?
+    // SELECT credit FROM customer_wallets WHERE customer_id = ? & id = ?
     `,
-    [userId, productId],
+    [userId, amount],
   );
 };
 
-const createPaymentDao = async (userId, { review, reviewId }) => {
+const updatePaymentDao = async (userId, amount) => {
   await dataSource.query(
     `
-    // INSERT INTO reviews (body, customer_id, thread_id) VALUES (?, ?, ?)
-    // `,
-    [review, userId, reviewId],
-  );
-};
-
-const updatePaymentDao = async (userId, { review, reviewId }) => {
-  await dataSource.query(
-    `
-    // UPDATE reviews SET review = ? WHERE customer_id = ? AND id = ?
+    // UPDATE customer_wallets SET credit = ? WHERE customer_id = ? AND id = ?
     `,
-    [review, userId, reviewId],
+    [amount, userId],
   );
 };
 
 module.exports = {
   getPaymentDao,
-  createPaymentDao,
   updatePaymentDao,
 };
