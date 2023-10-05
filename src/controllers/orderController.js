@@ -1,3 +1,4 @@
+const { throwError } = require('../../utils');
 const { orderService } = require('../services');
 const {
   createOrderService,
@@ -5,7 +6,6 @@ const {
   getOrderDetailService,
   cancelOrdersService,
 } = orderService;
-const { throwError } = require('../../utils');
 
 //주문하기 - 구현완료, 생성완료
 const createOrderController = async (req, res, next) => {
@@ -28,10 +28,12 @@ const createOrderController = async (req, res, next) => {
 const getOrderListController = async (req, res, next) => {
   try {
     const userId = req.user.id;
+    const { limit, offset }  = req.query;
+    if (!limit || !offset) throwError(400, 'NO_QUERYSTRING');
     if (!userId) throwError(400, "KEY_ERROR_UID");
     return res.status(200).json({
       message: 'ORDER_LIST_LOADED',
-      data: await getOrderListService(userId),
+      data: await getOrderListService(userId, limit, offset),
     });
   } catch (err) {
     console.error(err);
@@ -56,8 +58,7 @@ const getOrderDetailController = async (req, res, next) => {
   }
 };
 
-
-//주문취소
+//주문 취소
 const cancelOrdersController = async (req, res, next) => {
   try {
     const userId = req.user.id;

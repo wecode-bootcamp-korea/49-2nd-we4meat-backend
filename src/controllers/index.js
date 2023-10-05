@@ -32,7 +32,13 @@ const {
   walletRechargeController,
 } = require('./paymentController')
 
-const { getAddressController } = require('./addressController');
+const {
+  getAddressController,
+  getCustomerAllAddressController,
+  createAddressController,
+  getdefaultaddressController,
+  deleteOrderAddressController,
+} = require('./addressController');
 
 module.exports = {
   userController: {
@@ -65,6 +71,10 @@ module.exports = {
   },
   addressController: {
     getAddressController,
+    getCustomerAllAddressController,
+    createAddressController,
+    getdefaultaddressController,
+    deleteOrderAddressController,
   },
   paymentController: {
     checkAmountController,

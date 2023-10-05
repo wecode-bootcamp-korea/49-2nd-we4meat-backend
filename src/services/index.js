@@ -32,7 +32,13 @@ const {
   cancelOrdersService,
 } = require('./orderService');
 
-const { getOrderAddressService } = require('./addressService');
+const {
+  getOrderAddressService,
+  deleteOrderAddressService,
+  createOrderAddressService,
+  getCustomerAllAddressService,
+  getdefaultaddressService,
+} = require('./addressService');
 
 const {
   walletRechargeService,
@@ -73,6 +79,10 @@ module.exports = {
   },
   addressService: {
     getOrderAddressService,
+    deleteOrderAddressService,
+    createOrderAddressService,
+    getCustomerAllAddressService,
+    getdefaultaddressService,
   },
   paymentService: {
     walletRechargeService,

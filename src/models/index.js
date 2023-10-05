@@ -36,9 +36,12 @@ const {
 } = require('./orderDao');
 
 const {
-  postOrderAddressDao,
-  customerAddressDao,
   getAddressDao,
+  getCustomerAllAddressDao,
+  createAddressDao,
+  deleteCustomerAddressDao,
+  getdefaultaddressDao,
+  defaultAddressDao,
 } = require('./addressDao');
 
 const {
@@ -84,9 +87,12 @@ module.exports = {
     cancelOrdersDao,
   },
   addressDao: {
-    postOrderAddressDao,
-    customerAddressDao,
     getAddressDao,
+    getCustomerAllAddressDao,
+    createAddressDao,
+    deleteCustomerAddressDao,
+    getdefaultaddressDao,
+    defaultAddressDao,
   },
   paymentDao: {
     getWalletBalanceDao,
