@@ -38,8 +38,10 @@ const {
 const {
   getAddressDao,
   getCustomerAllAddressDao,
+  createAddressDao,
   deleteCustomerAddressDao,
   getdefaultaddressDao,
+  defaultAddressDao,
 } = require('./addressDao');
 
 module.exports = {
@@ -83,5 +85,6 @@ module.exports = {
     createAddressDao,
     deleteCustomerAddressDao,
     getdefaultaddressDao,
+    defaultAddressDao,
   },
 };

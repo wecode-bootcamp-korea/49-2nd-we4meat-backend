@@ -1,5 +1,5 @@
-const { create } = require('domain');
 const { addressDao } = require('../models');
+
 //주소가져오기
 const getOrderAddressService = async (userId) => {
   const getaddress = await addressDao.getAddressDao(userId);
@@ -31,16 +31,24 @@ const deleteOrderAddressService = async (userId, address) => {
     userId,
     address,
   );
-  console.log(deleteAddress);
+
   if (!deleteAddress) return 'CAN_NOT_DELETE_ADDRESS';
+
   return deleteAddress;
 };
+
 //기본주소입력
 const getdefaultaddressService = async (userId) => {
   const defaultaddress = await addressDao.getdefaultaddressDao(userId);
-  console.log(defaultaddress);
-  if (!defaultaddress) return 'NO_DEFAULT_ADDRESS';
-  return defaultaddress;
+
+  if (defaultaddress === null || defaultaddress === undefined) {
+    return ''; // 주소가 없는 경우 빈 문자열 반환
+  }
+
+  console.log('defaultaddress:', defaultaddress);
+
+  // defaultaddress는 배열이 아닌 객체 형태일 것으로 가정하고, address 속성을 반환
+  return addressDao.defaultAddressDao;
 };
 
 module.exports = {

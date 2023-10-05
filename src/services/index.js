@@ -32,13 +32,6 @@ const {
 } = require('./orderService');
 
 const {
-  createOrderService,
-  getOrderListService,
-  getOrderDetailService,
-  cancelOrdersService,
-} = require('./orderService');
-
-const {
   getOrderAddressService,
   deleteOrderAddressService,
   createOrderAddressService,

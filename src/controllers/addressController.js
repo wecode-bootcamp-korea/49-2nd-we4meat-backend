@@ -1,4 +1,5 @@
 const { addressService } = require('../services');
+const { throwError } = require('../../utils');
 //주소 불러오기
 const getAddressController = async (req, res) => {
   const userId = req.user.id;
@@ -24,12 +25,23 @@ const createAddressController = async (req, res) => {
   );
   return res.status(200).json({ createAddress });
 };
+const getdefaultaddressController = async (req, res, next) => {
+  try {
+    const userId = req.user.id;
+    console.log(userId, '아이디 해독 됐나요?');
+    const defaultaddress =
+      await addressService.getdefaultaddressService(userId);
 
-const getdefaultaddressController = async (req, res) => {
-  const userId = req.user.id;
-  const defaultaddress = await addressService.getdefaultaddressService(userId);
+    if (defaultaddress === null) {
+      // 주소가 null인 경우에 대한 처리
+      return res.status(404).json({ error: 'NO_DEFAULT_ADDRESS' });
+    }
 
-  return res.status(200).json({ defaultaddress });
+    return res.status(200).json({ defaultaddress });
+  } catch (err) {
+    console.error(err);
+    next(err); // 에러를 다음 미들웨어로 전달
+  }
 };
 
 const deleteOrderAddressController = async (req, res) => {
@@ -39,7 +51,6 @@ const deleteOrderAddressController = async (req, res) => {
     userId,
     address,
   );
-
   return res.status(200).json({ deleteaddress });
 };
 
