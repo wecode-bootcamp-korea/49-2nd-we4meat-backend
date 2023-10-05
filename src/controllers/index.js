@@ -26,7 +26,13 @@ const {
   cancelOrdersController,
 } = require('./orderController');
 
-const { getAddressController } = require('./addressController');
+const {
+  getAddressController,
+  getCustomerAllAddressController,
+  createAddressController,
+  getdefaultaddressController,
+  deleteOrderAddressController,
+} = require('./addressController');
 
 module.exports = {
   userController: {
@@ -58,5 +64,9 @@ module.exports = {
   },
   addressController: {
     getAddressController,
+    getCustomerAllAddressController,
+    createAddressController,
+    getdefaultaddressController,
+    deleteOrderAddressController,
   },
 };

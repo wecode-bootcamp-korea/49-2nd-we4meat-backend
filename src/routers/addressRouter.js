@@ -4,7 +4,19 @@ const { addressController } = require('../controllers');
 const router = express.Router();
 
 router.get('/', verifyToken, addressController.getAddressController);
-// router.post('/create', verifyToken);
-// router.patch('/delete', verifyToken)
+router.get(
+  '/all',
+  verifyToken,
+  addressController.getCustomerAllAddressController,
+);
+router.post('/', verifyToken, addressController.createAddressController);
+//router.patch('/delete', verifyToken)
+router.get(
+  '/default',
+  verifyToken,
+  addressController.getdefaultaddressController,
+);
+
+router.delete('/', verifyToken, addressController.deleteOrderAddressController);
 
 module.exports = router;

@@ -4,6 +4,7 @@ const { orderDao, enums } = require('../models');
 //주문상세 불러오기
 const getOrdersService = async (userId) => {
   const customerOrders = await orderDao.getOrdersDao(userId);
+  console.log('Service단', customerOrders);
   if (!customerOrders[0]) {
     const error = new Error('Ordered_Nothing');
     error.statusCode = 400;
