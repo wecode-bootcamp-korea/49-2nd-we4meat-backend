@@ -28,10 +28,12 @@ const createOrderController = async (req, res, next) => {
 const getOrderListController = async (req, res, next) => {
   try {
     const userId = req.user.id;
+    const { limit, offset }  = req.query;
+    if (!limit || !offset) throwError(400, 'NO_QUERYSTRING');
     if (!userId) throwError(400, "KEY_ERROR_UID");
     return res.status(200).json({
       message: 'ORDER_LIST_LOADED',
-      data: await getOrderListService(userId),
+      data: await getOrderListService(userId, limit, offset),
     });
   } catch (err) {
     console.error(err);

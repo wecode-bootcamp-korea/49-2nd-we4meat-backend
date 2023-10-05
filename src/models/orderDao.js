@@ -130,7 +130,7 @@ const getOrderListDao = async (userId) => {
 };
 
 // 주문 상세 정보 불러오기 - 구현 중
-const getOrderDetailDao = async (userId, orderId) => {
+const getOrderDetailDao = async (userId, orderId, limit, offset) => {
   return await dataSource.query(
     `
       SELECT
@@ -157,8 +157,10 @@ const getOrderDetailDao = async (userId, orderId) => {
         c.id = ? AND o.id = ?
       GROUP BY
         oi.order_id
+      LIMIT ?
+      OFFSET ?
     `,
-    [userId, orderId],
+    [userId, orderId, limit, offset],
   );
 };
 

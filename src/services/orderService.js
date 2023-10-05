@@ -18,8 +18,8 @@ const createOrderService = async (userId, totalPrice) => {
 };
 
 // 주문 목록 불러오기
-const getOrderListService = async (userId) => {
-  return await getOrderListDao(userId);
+const getOrderListService = async (userId, limit, offset) => {
+  return await getOrderListDao(userId, limit, offset);
 };
 
 // 주문 상세 불러오기
