@@ -44,6 +44,13 @@ const {
   defaultAddressDao,
 } = require('./addressDao');
 
+const {
+  getWalletBalanceDao,
+  walletUpdateDao,
+  getOrderAmountDao,
+  payStatusChangeDao,
+} = require('./paymentDao');
+
 module.exports = {
   enums,
   userDao: {
@@ -86,5 +93,11 @@ module.exports = {
     deleteCustomerAddressDao,
     getdefaultaddressDao,
     defaultAddressDao,
+  },
+  paymentDao: {
+    getWalletBalanceDao,
+    walletUpdateDao,
+    getOrderAmountDao,
+    payStatusChangeDao,
   },
 };

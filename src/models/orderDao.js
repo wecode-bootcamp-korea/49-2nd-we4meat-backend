@@ -108,6 +108,7 @@ const checkOrderStatusDao = async (orderId) => {
 const getOrderListDao = async (userId) => {
   return await dataSource.query(
     `
+<<<<<<< HEAD
       SELECT
         o.id AS orderId,
         JSON_ARRAYAGG(
@@ -124,6 +125,26 @@ const getOrderListDao = async (userId) => {
       JOIN products p ON oi.product_id = p.id
       WHERE o.customer_id = ?
       GROUP BY oi.order_id
+=======
+    SELECT
+      o.id AS orderId,
+      JSON_ARRAYAGG(
+        JSON_OBJECT(
+          'productId', p.id,
+          'productName', p.product_name,
+          'quantity', oi.quantity,
+          'price', p.price,
+          'totalPrice', (oi.quantity * p.price)
+        )
+      ) AS orderItems,
+      o.created_at AS orderDate
+    FROM orders o
+    JOIN order_items oi ON oi.order_id = o.id
+    JOIN products p ON oi.product_id = p.id
+    JOIN carts ON carts.product_id = p.id
+    WHERE o.customer_id = ? AND carts.status = 1
+    GROUP BY oi.order_id
+>>>>>>> 9221226133050fc3041ae9cebbb941d571882522
     `,
     [userId],
   );
