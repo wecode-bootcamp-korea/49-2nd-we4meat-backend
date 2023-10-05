@@ -8,15 +8,6 @@ const {
   dupliCheckEmailDao,
   dupliCheckPhoneDao,
 } = require('./userDao');
-const {
-  getOrdersDao,
-  getOrderListDao,
-  customerCartDao,
-  checkOrderStatusDao,
-  checkCreditDao,
-  MoveCartToOrderDao,
-  cancelOrdersDao,
-} = require('./orderDao');
 
 const { listProductsDao, productDetailDao } = require('./productDao');
 
@@ -27,10 +18,24 @@ const {
   deleteReviewDao,
 } = require('./reviewDao');
 
-const { updateItemDao, getCartDao, purgeCartDao } = require('./cartDao');
+const {
+  updateItemDao,
+  getCartDao,
+  purgeCartDao,
+  existingItemCheckDao,
+  updateQuantityDao,
+} = require('./cartDao');
 
 const {
-  createAddressDao,
+  customerCartDao,
+  MoveCartToOrderDao,
+  getOrderListDao,
+  getOrderDetailDao,
+  checkOrderStatusDao,
+  cancelOrdersDao,
+} = require('./orderDao');
+
+const {
   getAddressDao,
   getCustomerAllAddressDao,
   deleteCustomerAddressDao,
@@ -38,6 +43,7 @@ const {
 } = require('./addressDao');
 
 module.exports = {
+  enums,
   userDao: {
     getVerificationCodeDao,
     setNewPasswordDao,
@@ -46,16 +52,6 @@ module.exports = {
     dupliCheckEmailDao,
     dupliCheckPhoneDao,
   },
-  orderDao: {
-    getOrdersDao,
-    getOrderListDao,
-    customerCartDao,
-    checkOrderStatusDao,
-    checkCreditDao,
-    MoveCartToOrderDao,
-    cancelOrdersDao,
-  },
-  enums,
   productDao: {
     listProductsDao,
     productDetailDao,
@@ -70,6 +66,16 @@ module.exports = {
     updateItemDao,
     getCartDao,
     purgeCartDao,
+    existingItemCheckDao,
+    updateQuantityDao,
+  },
+  orderDao: {
+    customerCartDao,
+    MoveCartToOrderDao,
+    getOrderListDao,
+    getOrderDetailDao,
+    checkOrderStatusDao,
+    cancelOrdersDao,
   },
   addressDao: {
     getAddressDao,

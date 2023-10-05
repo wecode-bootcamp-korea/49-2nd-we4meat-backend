@@ -1,10 +1,18 @@
 const express = require('express');
 const { verifyToken } = require('../../middlewares');
 const { orderController } = require('../controllers');
+const {
+    createOrderController,
+    getOrderListController,
+    getOrderDetailController,
+    cancelOrdersController,
+  } = orderController
+
 const router = express.Router();
 
-router.get('/', verifyToken, orderController.getOrdersController);
-router.post('/pay', verifyToken, orderController.addToOrdersController);
-router.post('/cancel', verifyToken, orderController.cancelOrdersController);
+router.post('/', verifyToken, createOrderController);
+router.get('/', verifyToken, getOrderListController);
+router.get('/detail', verifyToken,getOrderDetailController);
+router.post('/cancel', verifyToken, cancelOrdersController);
 
 module.exports = router;

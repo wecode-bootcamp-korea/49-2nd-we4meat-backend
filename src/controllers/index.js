@@ -21,8 +21,9 @@ const {
   updateCartController,
 } = require('./cartController');
 const {
-  getOrdersController,
-  addToOrdersController,
+  createOrderController,
+  getOrderListController,
+  getOrderDetailController,
   cancelOrdersController,
 } = require('./orderController');
 
@@ -42,11 +43,6 @@ module.exports = {
     loginController,
     dupliCheckController,
   },
-  orderController: {
-    getOrdersController,
-    addToOrdersController,
-    cancelOrdersController,
-  },
   productController: {
     listProductController,
     productDetailController,
@@ -61,6 +57,12 @@ module.exports = {
     addItemController,
     getCartController,
     updateCartController,
+  },
+  orderController: {
+    createOrderController,
+    getOrderListController,
+    getOrderDetailController,
+    cancelOrdersController,
   },
   addressController: {
     getAddressController,

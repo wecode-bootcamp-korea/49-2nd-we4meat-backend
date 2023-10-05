@@ -1,54 +1,43 @@
 const { throwError } = require('../../utils');
 const { orderDao, enums } = require('../models');
+const { orderStatusEnum } = enums;
+const {
+  customerCartDao,
+  MoveCartToOrderDao,
+  getOrderListDao,
+  getOrderDetailDao,
+  checkOrderStatusDao,
+  cancelOrdersDao,
+} = orderDao;
 
-//주문상세 불러오기
-const getOrdersService = async (userId) => {
-  const customerOrders = await orderDao.getOrdersDao(userId);
-  console.log('Service단', customerOrders);
-  if (!customerOrders[0]) {
-    const error = new Error('Ordered_Nothing');
-    error.statusCode = 400;
-
-    throwError;
-  }
-  return customerOrders;
+// 주문 생성 (카트에서 -> 오더로)
+const createOrderService = async (userId, totalPrice) => {
+  const customerCart = await customerCartDao(userId);
+  if (customerCart.length == 0) throwError(400, 'NO_ORDERS');
+  return MoveCartToOrderDao(userId, totalPrice);
 };
 
-//주문하기
-const addToOrdersService = async (userId, totalPrice) => {
-  const customers_Credit = await orderDao.checkCreditDao(userId);
-  const customers_Carts = await orderDao.customerCartDao(userId);
-
-  if (customers_Credit < totalPrice || totalPrice < 0) {
-    const error = new Error('Not_Enough_Points');
-    error.statusCode = 400;
-
-    throwError;
-  }
-  if (customers_Carts.length == 0) {
-    const error = new Error('Order_Nothing');
-    error.statusCode = 400;
-
-    throwError;
-  }
-  return orderDao.MoveCartToOrderDao(userId, totalPrice, customers_Carts);
+// 주문 목록 불러오기
+const getOrderListService = async (userId, limit, offset) => {
+  return await getOrderListDao(userId, limit, offset);
 };
-//주문취소하기
+
+// 주문 상세 불러오기
+const getOrderDetailService = async (userId, orderId) => {
+  return await getOrderDetailDao(userId, orderId);
+};
+
+// 주문취소 - 구현 못함, 역량 부족, 시간 부족
 const cancelOrdersService = async (userId, orderId, totalPrice) => {
-  const orderStatus = await orderDao.checkOrderStatusDao(orderId);
-
-  if (orderStatus == enums.orderStatusEnum.CANCELED) {
-    const error = new Error('Already_canceled');
-    error.statusCode = 400;
-
-    throwError;
-  }
-
-  return await orderDao.cancelOrdersDao(userId, orderId, totalPrice);
+  const orderStatus = await checkOrderStatusDao(orderId);
+  if (orderStatus == orderStatusEnum.CANCELED)
+    throwError(400, 'ALREADY_CANCELED');
+  return await cancelOrdersDao(userId, orderId, totalPrice);
 };
 
 module.exports = {
-  getOrdersService,
-  addToOrdersService,
+  createOrderService,
+  getOrderListService,
+  getOrderDetailService,
   cancelOrdersService,
 };
